@@ -168,16 +168,24 @@ public class MainActivity extends Activity implements SensorEventListener {
             // Меняем текущую вкладку в зависимости от координаты X
             if (x <= -4.0f && currentTab != 3) currentTab++;
             else if (x >= 4.0f && currentTab != 0) currentTab--;
-            tabHost.setCurrentTab(currentTab);
         }
         // Горизонтальная ориентация
         else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
         {
-            // Меняем текущую вкладку в зависимости от координаты Y
-            if (y <= -4.0f && currentTab != 3) currentTab++;
-            else if (y >= 4.0f && currentTab != 0) currentTab--;
-            tabHost.setCurrentTab(currentTab);
+            // В зависиомсти в какую сторону телефон повернут
+            if (x > 0) {
+                // Меняем текущую вкладку в зависимости от координаты Y
+                if (y <= -4.0f && currentTab != 0) currentTab--;
+                else if (y >= 4.0f && currentTab != 3) currentTab++;
+            }
+            else {
+                // Меняем текущую вкладку в зависимости от координаты Y
+                if (y <= -4.0f && currentTab != 3) currentTab++;
+                else if (y >= 4.0f && currentTab != 0) currentTab--;
+            }
         }
+        // Устанавливаем текушую вкладку по результатам работы акселерометра
+        tabHost.setCurrentTab(currentTab);
 
         // Текущее время в мс
         long curTime = System.currentTimeMillis();
